@@ -89,7 +89,8 @@ select {
     gap: calc(7px * var(--SCALE));
 }
 
-.receiver-device-row {
+.receiver-device-row,
+.receiver-language-row {
     display: grid;
     grid-template-columns: auto 1fr;
     align-items: center;
@@ -99,7 +100,8 @@ select {
     font-size: var(--FS2);
 }
 
-.receiver-device-row select {
+.receiver-device-row select,
+.receiver-language-row select {
     width: 100%;
     min-width: 0;
     padding: calc(4px * var(--SCALE));
