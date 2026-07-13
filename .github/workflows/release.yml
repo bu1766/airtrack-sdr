@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        runner: [macos-15, macos-15-intel]
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses
+      - run: ./tests/run-tests.sh
+      - run: VERSION="${GITHUB_REF_NAME#v}" ./scripts/build-macos.sh
+      - run: ./scripts/verify-bundle.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.runner }}
+          path: |
+            dist/*.dmg
+            dist/SHA256SUMS-*.txt
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          merge-multiple: true
+          path: release
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: release/*
+          generate_release_notes: true
