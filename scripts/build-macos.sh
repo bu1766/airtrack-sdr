@@ -86,5 +86,5 @@ ln -s /Applications "$BUILD_ROOT/dmg/Applications"
 hdiutil create -quiet -volname "AirTrack SDR" -srcfolder "$BUILD_ROOT/dmg" -ov -format UDZO "$DIST/AirTrack-SDR-$VERSION-$ARCH.dmg"
 rm -rf "$BUILD_ROOT/dmg"
 printf '%s\n' "$APP" > "$DIST/.app-path"
-(cd "$DIST" && shasum -a 256 "AirTrack-SDR-$VERSION-$ARCH.dmg" > SHA256SUMS-$ARCH.txt)
+(cd "$DIST" && shasum -a 256 "AirTrack-SDR-$VERSION-$ARCH.dmg" > "SHA256SUMS-$ARCH.txt")
 echo "$DIST/AirTrack-SDR-$VERSION-$ARCH.dmg"
