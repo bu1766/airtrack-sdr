@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE HTML>
-<html>
+<html lang="en">
   <head>
-    <meta name="description" content="tar1090 - ADS-B plane tracking interface">
+    <meta name="description" content="AirTrack SDR - local ADS-B aircraft tracking for macOS">
 
     <meta charset="utf-8"/>
     <meta name="mobile-web-app-capable" content="yes">
@@ -19,7 +19,7 @@
 
     <link rel="icon" type="image/png" href="images/tar1090-favicon.png">
 
-    <title>tar1090</title>
+    <title>AirTrack SDR</title>
   </head>
 
   <body>
@@ -910,7 +910,7 @@
               <tr class="infoblock_heading">
                 <td style="text-align: right" class="infoBlockTitleText">
                   <span id="webinterface_pre"></span>
-                  <span class="link"><a href="https://github.com/wiedehopf/tar1090#tar1090" target="_blank" id="webinterface_link">tar1090</a></span>
+                  <span class="link"><a href="https://github.com/bu1766/airtrack-sdr" target="_blank" id="webinterface_link">AirTrack SDR</a></span>
                   <span id="webinterface_version"></span>
                   <span id="decoder_pre"></span>
                   <span class="link"><a href="" target="_blank" id="decoder_link"></a></span>
@@ -923,6 +923,13 @@
               <tr>
                 <td>
                   <div id="receiver-control" aria-label="RTL-SDR Device Control">
+                    <label class="receiver-language-row" for="receiver-language">
+                      <span id="receiver-language-label">Language</span>
+                      <select id="receiver-language" aria-label="Interface Language">
+                        <option value="en" data-i18n-ignore>English</option>
+                        <option value="zh-CN" data-i18n-ignore>简体中文</option>
+                      </select>
+                    </label>
                     <label id="receiver-device-row" class="receiver-device-row hidden" for="receiver-device">
                       <span>Device</span>
                       <select id="receiver-device" aria-label="SDR Device"></select>
@@ -1134,6 +1141,7 @@
     <script>let spriteSrc = 'images/sprites.png';</script>
     <script src="planeObject.js"></script>
     <script src="script.js"></script>
+    <script src="i18n.js"></script>
     <script src="receiver-control.js"></script>
 
     <link rel="preload" as="image" crossOrigin="anonymous" href="images/sprites.png">

@@ -8,6 +8,10 @@
   const deviceRow = document.getElementById("receiver-device-row");
   const deviceSelect = document.getElementById("receiver-device");
   let busy = false;
+  const i18n = window.airTrackI18n || {
+    t: (value) => value,
+    translateStatus: (value) => value,
+  };
 
   async function refreshDevices() {
     try {
@@ -33,7 +37,8 @@
   function render(payload) {
     const connected = Boolean(payload.connected);
     statusDot.className = connected ? "connected" : "disconnected";
-    statusText.textContent = payload.message || (connected ? "RTL-SDR Connected" : "RTL-SDR Disconnected");
+    const fallback = connected ? "RTL-SDR Connected" : "SDR Disconnected";
+    statusText.textContent = i18n.translateStatus(payload.message || fallback);
     connectButton.disabled = busy || connected;
     disconnectButton.disabled = busy || !connected;
     if (!connected) {
@@ -47,7 +52,7 @@
     if (busy) {
       connectButton.disabled = true;
       disconnectButton.disabled = true;
-      statusText.textContent = action === "start" ? "Connecting…" : "Disconnecting…";
+      statusText.textContent = i18n.t(action === "start" ? "Connecting…" : "Disconnecting…");
     }
     try {
       const options = action === "status" ? {cache: "no-store"} : {
@@ -59,7 +64,7 @@
       const payload = await response.json();
       render(payload);
     } catch (_error) {
-      render({connected: false, message: "Local Control Service Offline"});
+      render({connected: false, message: i18n.t("Local Control Service Offline")});
     } finally {
       busy = false;
     }
@@ -70,6 +75,7 @@
     request("start");
   });
   disconnectButton.addEventListener("click", () => request("stop"));
+  document.addEventListener("airtrack-language-changed", () => request("status"));
   refreshDevices();
   request("status");
   window.setInterval(refreshDevices, 5000);

@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-VERSION="${VERSION:-1.0.0}"
+VERSION="${VERSION:-1.1.0}"
 ARCH="$(uname -m)"
 BREW_PREFIX="$(brew --prefix)"
 DIST="$ROOT/dist"

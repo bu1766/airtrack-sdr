@@ -4,6 +4,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 
 node --check "$ROOT/Resources/Web/script.js"
 node --check "$ROOT/Resources/Web/receiver-control.js"
+node --check "$ROOT/Resources/Web/i18n.js"
 swiftc -typecheck -target "$(uname -m)-apple-macosx13.0" \
   -framework AppKit -framework WebKit -framework Network \
   "$ROOT/Sources/AirTrackSDR/main.swift"
@@ -11,6 +12,8 @@ swiftc -typecheck -target "$(uname -m)-apple-macosx13.0" \
 rg -q 'id="routeRow"' "$ROOT/Resources/Web/index.html"
 rg -q 'selected_aircraft_model' "$ROOT/Resources/Web/index.html"
 rg -q 'Start Tracking' "$ROOT/Resources/Web/index.html"
+rg -q 'src="i18n.js"' "$ROOT/Resources/Web/index.html"
+rg -q 'airtrack-language-changed' "$ROOT/Resources/Web/receiver-control.js"
 rg -q '/api/receiver/devices' "$ROOT/Resources/Web/receiver-control.js"
 rg -q '127\.0\.0\.1' "$ROOT/Sources/AirTrackSDR/main.swift"
 rg -q 'cleanupOrphanedDecoder' "$ROOT/Sources/AirTrackSDR/main.swift"
