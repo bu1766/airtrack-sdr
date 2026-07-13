@@ -10,12 +10,13 @@ permissions:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         runner: [macos-15, macos-15-intel]
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
-      - run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses
+      - uses: actions/checkout@v5
+      - run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses ripgrep
       - run: ./tests/run-tests.sh
       - run: VERSION="${GITHUB_REF_NAME#v}" ./scripts/build-macos.sh
       - run: ./scripts/verify-bundle.sh

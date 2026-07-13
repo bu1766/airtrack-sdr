@@ -7,13 +7,14 @@ on:
 jobs:
   validate:
     strategy:
+      fail-fast: false
       matrix:
         runner: [macos-15, macos-15-intel]
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Install decoder dependencies
-        run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses
+        run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses ripgrep
       - name: Check English UI
         run: ./tests/run-tests.sh
       - name: Build app and DMG
