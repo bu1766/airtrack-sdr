@@ -12,7 +12,7 @@ jobs:
         runner: [macos-15, macos-15-intel]
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Install decoder dependencies
         run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses ripgrep
       - name: Check English UI
@@ -22,7 +22,7 @@ jobs:
       - name: Verify app bundle
         run: ./scripts/verify-bundle.sh
       - name: Upload DMG
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: AirTrack-SDR-${{ matrix.runner }}
           path: |

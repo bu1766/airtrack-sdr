@@ -15,12 +15,12 @@ jobs:
         runner: [macos-15, macos-15-intel]
     runs-on: ${{ matrix.runner }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - run: brew install dump1090-fa librtlsdr libbladerf libusb ncurses ripgrep
       - run: ./tests/run-tests.sh
       - run: VERSION="${GITHUB_REF_NAME#v}" ./scripts/build-macos.sh
       - run: ./scripts/verify-bundle.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: release-${{ matrix.runner }}
           path: |
@@ -31,7 +31,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           pattern: release-*
           merge-multiple: true
